@@ -1,0 +1,27 @@
+.todo {
+    display: flex;
+    flex-direction: column;
+
+    .checkbox-list {
+      display: flex;
+      flex-direction: column;
+      padding: 0px 10px 5px 10px;
+    }
+  }
+
+.add-todo {
+    display: flex;
+    align-items: flex-start;
+    column-gap: 6px;
+    border-top: 1px solid #adb5bd;
+    border-bottom: 1px solid #adb5bd;
+    padding: 5px 0px;
+
+    input {
+        border: none;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}

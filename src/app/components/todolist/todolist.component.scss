@@ -1,0 +1,45 @@
+:host {
+  display: block;
+}
+.search {
+  position: relative;
+  input {
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 2px solid gray;
+  }
+  .search-icon {
+    font-size: 24px;
+    position: absolute;
+    top: 11px;
+    right: 26px;
+  }
+}
+
+.todo-divtainer {
+  display: grid;
+  column-gap: 15px;
+  row-gap: 10px;
+  margin-top: 21px;
+  grid-template-columns: repeat(3, 1fr);
+
+  .todo {
+    display: flex;
+    flex-direction: column;
+    background-color: #e9ecef;
+    box-shadow: 8px 8px 10px #cfd2d5, -8px -8px 10px #ffffff;
+    border-radius: 20px;
+
+    .todo-title {
+      font-size: 24px;
+      padding: 15px;
+    }
+
+    .checkbox-list {
+      display: flex;
+      flex-direction: column;
+      padding: 0px 10px 5px 10px;
+    }
+  }
+}

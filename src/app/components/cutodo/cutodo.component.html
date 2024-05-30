@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Today List</h1>
+<div mat-dialog-content>
+    <div class="add-todo">
+        <span><mat-icon>add</mat-icon></span>
+        <span><input type="text" placeholder="List Item" (keydown)="AddTodoInList($event)"></span>
+    </div>
+    <div class="todo">
+        <div class="checkbox-list">
+            <span *ngFor="let item of TodoArr"><mat-checkbox>{{item}}</mat-checkbox></span>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>No</button>
+    <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+</div>

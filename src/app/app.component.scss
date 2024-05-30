@@ -1,0 +1,30 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.menu-item {
+    margin-right: 12px;
+    cursor: pointer;
+}
+// .navmenu {
+//     display: flex;
+//     justify-content: start;
+//     align-items: center;
+//     list-style-type: none;
+//     gap: 15px;
+//     background-color: rgb(97, 194, 97);
+//     padding: 20px 15px;
+//     margin-bottom: 10px;
+//     cursor: pointer;
+
+//     li {
+//         &:first-child {
+//             flex: 1;
+//         }
+//         a {
+//             text-decoration: none;
+//             color: black;
+//             font-size: 25px;
+//         }
+//     }
+// }

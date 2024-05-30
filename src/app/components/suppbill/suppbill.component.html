@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form>
+                <mat-form-field>
+                    <mat-label>Regular Charges</mat-label>
+                    <mat-select [(value)]="currentRegularCharge" name="food" (selectionChange)="applyRegularCharges()">
+                        <mat-option *ngFor="let food of _regularCharges" [value]="food.value">
+                            {{food.value}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <p> Selected Type: {{currentRegularCharge}} </p>
+            </form>
+        </div>
+        <div class="col">
+            <form>
+                <mat-form-field>
+                    <mat-label>Other Charges</mat-label>
+                    <mat-select [(value)]="currentOtherCharge" name="food" (selectionChange)="applyOtherCharger()">
+                        <mat-option *ngFor="let food of _otherCharges" [value]="food.value">
+                            {{food.value}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <p> Selected Type: {{currentOtherCharge}} </p>
+            </form>
+        </div>
+    </div>
+    <div class="row" *ngIf="dataSource.length != 0">
+        <app-table [dataSource]="dataSource"></app-table>
+    </div>
+</div>
