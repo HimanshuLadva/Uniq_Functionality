@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { CutodoComponent } from '../cutodo/cutodo.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TodoArr } from './todo-data';
+import { CutodoComponent } from '../cutodo/cutodo.component';
 
 @Component({
   selector: 'app-todolist',
@@ -18,7 +18,7 @@ import { TodoArr } from './todo-data';
 })
 export class TodolistComponent {
   TodoArr: any[] = [];
-  Matrix:any[][];
+  Matrix: any[][];
 
   constructor(private dialog: MatDialog) {
     this.convertInto2DArray();
@@ -43,6 +43,8 @@ export class TodolistComponent {
       })
     ]);
 
+    console.log('tasksssss', TodoArr);
+
     this.getDimensions();
   }
 
@@ -53,17 +55,17 @@ export class TodolistComponent {
     divElements.forEach((divElement, index) => {
       const divHeight = divElement.clientHeight;
       console.log('divHeight', divHeight);
-      
-      if (this.Matrix[numRows][numCols] == null) {
-         return;
-      }  
-        this.Matrix[numRows][numCols][0]['height'] = divHeight;
-        numCols++;
 
-        if(numCols > this.numCols) {
-           numCols = 0;
-           numRows++;
-        }
+      if (this.Matrix[numRows][numCols] == null) {
+        return;
+      }
+      this.Matrix[numRows][numCols][0]['height'] = divHeight;
+      numCols++;
+
+      if (numCols > this.numCols) {
+        numCols = 0;
+        numRows++;
+      }
     });
 
     let rows = this.Matrix.length;
@@ -76,9 +78,9 @@ export class TodolistComponent {
       for (let i = 0; i < rows; i++) {
         if (this.Matrix[i][j] == null) {
           break;
-        } 
+        }
 
-        this.Matrix[i][j][0]['transform'] = `translate(${width}px, ${height}px)`;     
+        this.Matrix[i][j][0]['transform'] = `translate(${width}px, ${height}px)`;
 
         height += (this.Matrix[i][j][0]['height'] + 16);
       }
@@ -88,7 +90,7 @@ export class TodolistComponent {
 
   numRows: number;
   numCols: number;
-  margin:string;
+  margin: string;
   getDimensions() {
     const screenWidth = window.innerWidth;
     const taskWidth = 260;
@@ -116,8 +118,8 @@ export class TodolistComponent {
       this.getDivHeights();
     }, 1000);
   }
-  
-  FindMinumum(arr:any[]) {
+
+  FindMinumum(arr: any[]) {
     let min = arr[0];
     let minIndex = 0;
     for (let i = 1; i < arr.length; i++) {

@@ -1,0 +1,5 @@
+div[contenteditable="true"][data-placeholder]:empty:before {
+    content: attr(data-placeholder);
+    color: #888; /* Placeholder color */
+    pointer-events: none;
+  }

@@ -1,0 +1,11 @@
+<div #editableDiv
+    style="outline: none;" 
+    aria-multiline="true" 
+    contenteditable="true" 
+    (input)="updateContent($event)" 
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+    (keydown)="handleKeydown($event)"
+    [innerText]="content"
+>
+</div>

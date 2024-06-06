@@ -1,0 +1,72 @@
+:host {
+  display: block;
+}
+.todo {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.main {
+    padding: 0 15px; 
+}
+
+.todo-header {
+    padding: 15px 10px 15px 0px;
+    font-size: 24px;
+}
+
+.checkbox-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 10px 5px 0px;
+    gap: 10px;
+}
+
+.checkbox-list .fieldvalue {
+   display: flex;
+   align-items: center;
+}
+.checkbox-list .fieldvalue-child {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+    flex: 1;
+}
+.checkbox-list .focused {
+   border-top: 1px solid gray;
+   border-bottom: 1px solid gray;
+}
+.checkbox-list .fieldvalue-child div:nth-child(2) {
+   flex: 1;
+}
+/* .checkbox-list .fieldvalue {
+    padding-left: 12px;
+} */
+
+.add-todo {
+    display: flex;
+    align-items: flex-start;
+    column-gap: 6px;
+    border-top: 1px solid #adb5bd;
+    border-bottom: 1px solid #adb5bd;
+    padding: 5px 0px;
+}
+
+.todo-footer {
+    padding-right: 15px;
+    padding-bottom: 10px;
+}
+
+input {
+    border: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+::ng-deep .mat-dialog-actions {
+    min-height: 0px !important;
+    margin-bottom: 0px !important;
+}
