@@ -22,7 +22,7 @@
                         </div>
                         <div class="checkbox-list">
                             <span *ngFor="let citem of TodoArr[i].tasks; let ci = index"><mat-checkbox
-                                    (change)="editTodoList(i, ci, $event.checked)" [(indeterminate)]="indeterminate"
+                                    (change)="editTodoList(i, ci, $event.checked)"
                                     [(ngModel)]="citem.IsCompleted"><span
                                         [ngStyle]="{'text-decoration': citem.IsCompleted ? 'line-through': ''}">{{citem.FieldValue}}</span></mat-checkbox></span>
                         </div>
