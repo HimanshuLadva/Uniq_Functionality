@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { CutodoComponent } from '../cutodo/cutodo.component';
@@ -17,13 +17,15 @@ import { TodoArr } from './todo-data';
   styleUrls: ['./todolist.component.scss'],
 })
 export class TodolistComponent {
-  @ViewChildren('divElement') divElements!: QueryList<ElementRef>;
-
   TodoArr: any[] = [];
   Matrix:any[][];
 
   constructor(private dialog: MatDialog) {
     this.convertInto2DArray();
+  }
+
+  ngOnInit() {
+    window.addEventListener('resize', this.getDimensions.bind(this));
   }
 
   convertInto2DArray() {
@@ -41,21 +43,20 @@ export class TodolistComponent {
       })
     ]);
 
-    console.log('todoArrrrrr', this.TodoArr);
- 
     this.getDimensions();
   }
 
   getDivHeights() {
     let numRows = 0;
     let numCols = 0;
-    this.divElements.forEach((divElement, index) => {
-      const divHeight = divElement.nativeElement.offsetHeight;
-      // console.log(`Height of div ${index + 1}: ${divHeight}px`);
-
-      // if (FirstRowCount <= 4) {
-        // this.TodoArr[index][0]['transform'] = `translate(${(256) * ((index))}px, 0)`;
-        // this.Matrix[numRows][numCols][0]['transform'] = `translate(${(256) * ((index))}px, 0)`;
+    const divElements = document.querySelectorAll('div#divElement');
+    divElements.forEach((divElement, index) => {
+      const divHeight = divElement.clientHeight;
+      console.log('divHeight', divHeight);
+      
+      if (this.Matrix[numRows][numCols] == null) {
+         return;
+      }  
         this.Matrix[numRows][numCols][0]['height'] = divHeight;
         numCols++;
 
@@ -63,39 +64,57 @@ export class TodolistComponent {
            numCols = 0;
            numRows++;
         }
-      // } 
     });
 
     let rows = this.Matrix.length;
     let cols = this.Matrix[0].length;
 
     // Traverse the matrix vertically
-    let heightArr = [];
     for (let j = 0; j < cols; j++) {
       let height = 0;
       let width = (256 * j);
       for (let i = 0; i < rows; i++) {
-        this.Matrix[i][j][0]['transform'] = `translate(${width}px, ${height}px)`;        
-        height += (this.Matrix[i][j][0]['height'] + 16);
-      }
-      heightArr.push(height);
-    }
+        if (this.Matrix[i][j] == null) {
+          break;
+        } 
 
-    console.log('heightArrrr', heightArr);
-    let totalHeight = heightArr.reduce((acc, curr) => acc + curr, 0);
-    let averageHeight = totalHeight / heightArr.length;
+        this.Matrix[i][j][0]['transform'] = `translate(${width}px, ${height}px)`;     
 
-    for (let j = 0; j < cols; j++) {
-      let height = 0;
-      let width = (256 * j);
-      for (let i = 0; i < rows; i++) {
-
-        this.Matrix[i][j][0]['transform'] = `translate(${width}px, ${height}px)`;
         height += (this.Matrix[i][j][0]['height'] + 16);
       }
     }
-
     console.log('Matrixxxx', this.Matrix);
+  }
+
+  numRows: number;
+  numCols: number;
+  margin:string;
+  getDimensions() {
+    const screenWidth = window.innerWidth;
+    const taskWidth = 260;
+    const minTasksPerRow = 1;
+
+    console.log('screenWidth', screenWidth);
+
+    let tasksPerRow = Math.floor(screenWidth / taskWidth);
+    tasksPerRow = Math.max(tasksPerRow, minTasksPerRow);
+
+    this.numRows = Math.ceil(this.TodoArr.length / tasksPerRow);
+    this.numCols = Math.min(this.TodoArr.length, tasksPerRow) - 1;
+
+    console.log('screenWidth', this.numRows, this.numCols);
+
+    let margin = (screenWidth - (256 * (this.numCols + 1))) / 2;
+    this.margin = `0px ${margin}px`;
+
+    this.Matrix = [];
+    for (let i = 0; i < this.numRows; i++) {
+      this.Matrix.push(this.TodoArr.slice(i * tasksPerRow, (i + 1) * tasksPerRow));
+    }
+
+    setTimeout(() => {
+      this.getDivHeights();
+    }, 1000);
   }
   
   FindMinumum(arr:any[]) {
@@ -108,31 +127,6 @@ export class TodolistComponent {
       }
     }
     return minIndex;
-  }
-
-  numRows:number;
-  numCols:number;
-  getDimensions() {
-    const screenWidth = window.innerWidth;
-    const taskWidth = 300;
-    const minTasksPerRow = 1;
-
-    let tasksPerRow = Math.floor(screenWidth / taskWidth);
-    tasksPerRow = Math.max(tasksPerRow, minTasksPerRow);
-
-    this.numRows = Math.ceil(this.TodoArr.length / tasksPerRow);
-    this.numCols = Math.min(this.TodoArr.length, tasksPerRow) - 1;
-
-    this.Matrix = [];
-    for (let i = 0; i < this.numRows; i++) {
-      this.Matrix.push(this.TodoArr.slice(i * tasksPerRow, (i + 1) * tasksPerRow));
-    }
-    
-    setTimeout(() => {
-      this.getDivHeights();
-    }, 1000);
-    console.log('Matrixxxxxxxx', this.Matrix);
-    // return { numRows, numCols };
   }
 
   addTodo(mode: string) {

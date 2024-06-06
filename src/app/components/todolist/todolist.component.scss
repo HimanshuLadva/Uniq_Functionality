@@ -18,23 +18,19 @@
 }
 
 .todo-divtainer {
-  position: relative;
-  // width: 1040px;
-  // display: grid;
-  // display: flex;
-  // flex-wrap: wrap;
-  // justify-content: center;
-  // column-gap: 15px;
-  // row-gap: 10px;
-  // margin-top: 21px;
-  // grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  // grid-auto-rows: auto;
-  // grid-auto-rows: minmax(auto, 1fr);
-  
+  height: 100vw;
+
+  .todo-head {
+    position: relative;
+    right: 16px;
+  }
+
   .todo {
-    margin: 16px;
     position: absolute;
+    margin: 16px;
     width: 240px;
+    max-height: 461px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     background-color: #e9ecef;
