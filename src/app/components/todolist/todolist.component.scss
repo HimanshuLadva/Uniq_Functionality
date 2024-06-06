@@ -37,6 +37,7 @@
     box-shadow: 8px 8px 10px #cfd2d5, -8px -8px 10px #ffffff;
     border-radius: 20px;
     height: fit-content;
+    transition: transform 0.5s ease-in-out;
 
     .todo-title {
       font-size: 24px;
