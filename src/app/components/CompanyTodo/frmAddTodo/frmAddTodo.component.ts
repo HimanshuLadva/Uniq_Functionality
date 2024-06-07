@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject, ViewChild } from "@angular/core";
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 import { MatIconModule } from '@angular/material/icon';
 import { EditableDivComponent } from '../editablediv/editablediv';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-frm-add-todo',
   standalone: true,
   imports: [
-    CommonModule,MatIconModule,MatCheckboxModule,EditableDivComponent
+    CommonModule,MatIconModule,MatCheckboxModule,EditableDivComponent,MatButtonModule,MatDialogModule
   ],
   templateUrl: './frmAddTodo.component.html',
   styleUrls: ['./frmAddTodo.component.scss'],
@@ -24,10 +25,9 @@ export class FrmAddTodoComponent {
   }
 
   ngOnInit() {
-
     if (this.data != null) {
-      this.Header = this.data.title;
-      let data: any[] = JSON.parse(JSON.stringify(this.data.tasks));
+      this.Header = this.data[0].Header;
+      let data: any[] = JSON.parse(JSON.stringify(this.data));
       data.forEach(ele => {
         ele['isFocused'] = false;
         ele['isHovered'] = false;

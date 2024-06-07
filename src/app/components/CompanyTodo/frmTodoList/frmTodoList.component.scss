@@ -27,52 +27,36 @@
 }
 
 .todo-divtainer {
-    width: 100%;
-    display: grid;
-    column-gap: 15px;
-    row-gap: 10px;
-    margin-top: 21px;
-    grid-template-columns: repeat(auto-fill, 350px);
-    justify-content: center;
-    margin-bottom: 10px;
-    /* display: flex;
-    flex-wrap: wrap;
-    column-gap: 15px;
-    row-gap: 10px;
-    margin-top: 21px; */
-}
+  height: 100vw;
 
-.todo-divtainer .todo {
+  .todo-head {
+    position: relative;
+    right: 16px;
+  }
+
+  .todo {
+    position: absolute;
+    margin: 16px;
     width: 240px;
-    box-sizing: border-box;
-    display: flex;
-
-    flex-direction: column;
-    /* background-color: #e9ecef; */
-    /* background-color: #ffffff;
-    box-shadow: 8px 8px 10px #9cb3ca, -8px -8px 10px #fff;
-    border-radius: 10px; */
-    border-radius: 10px;
-    background: #ffffff;
-    box-shadow:  6px 6px 12px #d9d9d9,
-                 -6px -6px 12px #ffffff;
-    /* flex: 25%;
-    max-width: 25%;
-    height: fit-content; */
-    /* padding: 0 4px; */
-}
-
-.todo-divtainer .todo .todo-title {
-    font-size: 24px;
-    padding: 15px;
-    border-bottom: 1px solid #e3e3e3;
-}
-.todo-divtainer .todo .todo-title span:not(:first-child) {
-    margin-left: 5px;
-}
-
-.todo-divtainer .todo .checkbox-list {
+    max-height: 461px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    padding: 8px 20px 5px 20px;
+    background-color: #e9ecef;
+    box-shadow: 8px 8px 10px #cfd2d5, -8px -8px 10px #ffffff;
+    border-radius: 20px;
+    height: fit-content;
+    transition: transform 0.5s ease-in-out;
+
+    .todo-title {
+      font-size: 24px;
+      padding: 15px;
+    }
+
+    .checkbox-list {
+      display: flex;
+      flex-direction: column;
+      padding: 0px 10px 5px 10px;
+    }
+  }
 }

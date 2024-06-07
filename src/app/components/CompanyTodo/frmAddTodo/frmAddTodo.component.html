@@ -9,56 +9,58 @@
                 (keydown)="AddTodoInList($event, TodoValue)"></editable-div>
         </span>
     </div>
-    <div class="todo">
-        <div class="checkbox-list">
-            <span *ngFor="let item of Todos" class="fieldvalue" (mouseenter)="item.isHovered = true"
-                (mouseleave)="item.isHovered = false" [ngClass]="{'focused': item.isFocused}">
-                <div style="height: 24px; width: 24px;">
-                    <mat-icon *ngIf="item.isHovered">drag_indicator</mat-icon>
-                </div>
-                <div class="fieldvalue-child">
-                    <div (click)="ToggleCheckBox(item)">
-                        <!-- <CheckBox ColumnName="" [(Value)]="item.IsCompleted" DisplayText=" " SideLable="false">
-                        </CheckBox> -->
-                        <mat-checkbox></mat-checkbox>
+    <mat-dialog-content>
+        <div class="todo">
+            <div class="checkbox-list">
+                <span *ngFor="let item of Todos" class="fieldvalue" (mouseenter)="item.isHovered = true"
+                    (mouseleave)="item.isHovered = false" [ngClass]="{'focused': item.isFocused}">
+                    <div style="height: 24px; width: 24px;">
+                        <mat-icon *ngIf="item.isHovered">drag_indicator</mat-icon>
                     </div>
-                    <div>
-                        <editable-div (focusChange)="handleFocus(item, $event)"
-                            [(content)]="item.FieldValue"></editable-div>
+                    <div class="fieldvalue-child">
+                        <div (click)="ToggleCheckBox(item)">
+                            <!-- <CheckBox ColumnName="" [(Value)]="item.IsCompleted" DisplayText=" " SideLable="false">
+                                </CheckBox> -->
+                            <mat-checkbox></mat-checkbox>
+                        </div>
+                        <div>
+                            <editable-div (focusChange)="handleFocus(item, $event)"
+                                [(content)]="item.FieldValue"></editable-div>
+                        </div>
+                        <div *ngIf="item.isHovered" (click)="RemoveTodoFromList(item.Id)">
+                            <mat-icon>close</mat-icon>
+                        </div>
                     </div>
-                    <div *ngIf="item.isHovered" (click)="RemoveTodoFromList(item.Id)">
-                        <mat-icon>close</mat-icon>
+                </span>
+        
+                <div>Completed&nbsp;({{CompletedTodos.length}})</div>
+        
+                <span *ngFor="let item of CompletedTodos" class="fieldvalue" (mouseenter)="item.isHovered = true"
+                    (mouseleave)="item.isHovered = false" [ngClass]="{'focused': item.isFocused}">
+                    <div style="height: 24px; width: 24px;">
+                        <mat-icon *ngIf="item.isHovered">drag_indicator</mat-icon>
                     </div>
-                </div>
-            </span>
-
-            <div>Completed&nbsp;({{CompletedTodos.length}})</div>
-            
-            <span *ngFor="let item of CompletedTodos" class="fieldvalue" (mouseenter)="item.isHovered = true"
-                (mouseleave)="item.isHovered = false" [ngClass]="{'focused': item.isFocused}">
-                <div style="height: 24px; width: 24px;">
-                    <mat-icon *ngIf="item.isHovered">drag_indicator</mat-icon>
-                </div>
-                <div class="fieldvalue-child">
-                    <div (click)="ToggleCheckBox(item)">
-                        <!-- <CheckBox ColumnName="" [(Value)]="item.IsCompleted" DisplayText=" " SideLable="false">
-                        </CheckBox> -->
-                        <mat-checkbox></mat-checkbox>
+                    <div class="fieldvalue-child">
+                        <div (click)="ToggleCheckBox(item)">
+                            <!-- <CheckBox ColumnName="" [(Value)]="item.IsCompleted" DisplayText=" " SideLable="false">
+                                </CheckBox> -->
+                            <mat-checkbox></mat-checkbox>
+                        </div>
+                        <div>
+                            <editable-div (focusChange)="handleFocus(item, $event)"
+                                [(content)]="item.FieldValue"></editable-div>
+                        </div>
+                        <div *ngIf="item.isHovered" (click)="RemoveTodoFromList(item.Id)">
+                            <mat-icon>close</mat-icon>
+                        </div>
                     </div>
-                    <div>
-                        <editable-div (focusChange)="handleFocus(item, $event)"
-                            [(content)]="item.FieldValue"></editable-div>
-                    </div>
-                    <div *ngIf="item.isHovered" (click)="RemoveTodoFromList(item.Id)">
-                        <mat-icon>close</mat-icon>
-                    </div>
-                </div>
-            </span>
-
+                </span>
+        
+            </div>
         </div>
-    </div>
+    </mat-dialog-content>
 </div>
 <div class="todo-footer" mat-dialog-actions align="end">
-    <button class="epic-bttn" mat-raised-button mat-dialog-close>Save</button>
-    <button class="epic-bttn" mat-raised-button mat-dialog-close (click)="OnClose()">Cancel</button>
+    <button mat-raised-button mat-dialog-close>Save</button>
+    <button mat-raised-button mat-dialog-close (click)="OnClose()">Cancel</button>
 </div>

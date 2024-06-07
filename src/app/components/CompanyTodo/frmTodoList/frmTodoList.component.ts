@@ -23,7 +23,9 @@ export class FrmTodoListComponent {
   IsDeleteBtnReq = false;
   private saveSubject = new Subject<any>();
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {
+    this.LoadData();
+   }
 
   AddTodoList(item: any = null) {
     console.log('AddTodoList', item);
@@ -44,7 +46,7 @@ export class FrmTodoListComponent {
   }
 
   ngOnInit() {
-    this.LoadData();
+    window.addEventListener('resize', this.getDimensions.bind(this));
   }
 
   OnDelete(item: any) { }
@@ -64,28 +66,30 @@ export class FrmTodoListComponent {
         })
       }
       let obj = {
-        title: item.tasks[0]['Header'],
+        // title: item.tasks[0]['Header'],
         tasks: item.tasks
       }
 
+      obj.tasks[0].title = item.tasks[0]['Header'];
+
       this.TodoArr.push(obj);
     }
+    this.convertInto2DArray();
   }
 
   convertInto2DArray() {
     this.TodoArr = this.TodoArr.map(item => [
-      {
-        title: item.title,
-        transform: item.transform,
-      },
+      // {
+      //   title: item.title,
+      //   transform: item.transform,
+      // },
       ...item.tasks.map((task, i) => {
-        let obj = {
-          task: task.task,
-          id: i + 1
-        };
-        return obj;
+        task.transform = item.transform;
+        return task;
       })
     ]);
+
+    this.getDimensions();
   }
 
   numRows: number;
@@ -131,7 +135,8 @@ export class FrmTodoListComponent {
       if (this.Matrix[numRows][numCols] == null) {
         return;
       }
-      this.Matrix[numRows][numCols][0]['height'] = divHeight;
+      // this.Matrix[numRows][numCols][0]['height'] = divHeight;
+      this.Matrix[numRows][numCols].forEach(ele => ele['height'] = divHeight);
       numCols++;
 
       if (numCols > this.numCols) {
@@ -152,7 +157,8 @@ export class FrmTodoListComponent {
           break;
         }
 
-        this.Matrix[i][j][0]['transform'] = `translate(${width}px, ${height}px)`;
+        this.Matrix[i][j].forEach(ele => ele['transform'] = `translate(${width}px, ${height}px)`);
+        // this.Matrix[i][j][0]['transform'] = `translate(${width}px, ${height}px)`;
 
         height += (this.Matrix[i][j][0]['height'] + 16);
       }
@@ -161,13 +167,12 @@ export class FrmTodoListComponent {
   }
 
 
-  editTodoList(parentIndex: number, childIndex: number, IsCompleted: boolean) {
-    // let current = item;
-    // item.IsCompleted = !E.toBoolE(item.IsCompleted);
-    let current = this.TodoArr[parentIndex].tasks[childIndex];
+  editTodoList(parentIndex: number, childIndex: number,cindex:number, IsCompleted: boolean) {
+    debugger
+    let current = this.Matrix[parentIndex][childIndex][cindex];
     current.IsCompleted = IsCompleted;
 
-    this.TodoArr[parentIndex].tasks.sort((a, b) => {
+    this.Matrix[parentIndex][childIndex].sort((a, b) => {
       if (a['IsCompleted'] > b['IsCompleted']) {
         return 1;
       }

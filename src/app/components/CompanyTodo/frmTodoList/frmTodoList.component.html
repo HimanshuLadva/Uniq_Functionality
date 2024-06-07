@@ -1,31 +1,29 @@
 <div class="epic-col12">
-    <div style="max-width: 100%; overflow: auto; height: 100vh;">
-        <div class="container-xxl" style="width: 100%;">
-            <div class="row justify-content-center" style="margin-top: 10px;">
-                <div class="search col-4">
-                    <input type="text" placeholder="Search To Do">
-                    <mat-icon class="search-icon">search</mat-icon>
-                </div>
-                <div class="col-2">
-                    <button class="btn btn-success" (click)="AddTodoList()">Add Todo</button>
-                </div>
-            </div>
+    <div class="row justify-content-center" style="margin-top: 10px;">
+        <div class="search col-4">
+            <input type="text" placeholder="Search To Do">
+            <mat-icon class="search-icon">search</mat-icon>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-success" (click)="AddTodoList()">Add Todo</button>
+        </div>
+    </div>
 
-            <div class="row">
-                <div class="todo-divtainer">
-                    <div class="todo" *ngFor="let item of TodoArr; let i = index">
-                        <div class="todo-title d-flex justify-content-between align-items-center">
-                            <span style="flex: 1;">{{item.title}}</span>
-                            <span (click)="AddTodoList(item)"><mat-icon>edit</mat-icon></span>
-                            <span *ngIf="IsDeleteBtnReq"
-                                (click)="OnDelete(item.tasks)"><mat-icon>delete</mat-icon></span>
-                        </div>
-                        <div class="checkbox-list">
-                            <span *ngFor="let citem of TodoArr[i].tasks; let ci = index"><mat-checkbox
-                                    (change)="editTodoList(i, ci, $event.checked)"
-                                    [(ngModel)]="citem.IsCompleted"><span
-                                        [ngStyle]="{'text-decoration': citem.IsCompleted ? 'line-through': ''}">{{citem.FieldValue}}</span></mat-checkbox></span>
-                        </div>
+    <div [style.margin]="margin">
+        <div class="todo-divtainer">
+            <div class="todo-head" *ngFor="let row of Matrix; let pi = index;">
+                <div id="divElement" class="todo" *ngFor="let col of row;let ci= index;" style="margin: 16px;"
+                    [style.transform]="Matrix[pi][ci][0].transform">
+                    <div class="todo-title d-flex justify-content-between align-items-center">
+                        <span>{{Matrix[pi][ci][0].Header}}</span>
+                        <span (click)="AddTodoList(Matrix[pi][ci])"><mat-icon>remove_red_eye</mat-icon></span>
+                    </div>
+                    <div class="checkbox-list">
+                        <span *ngFor="let item of col; let i = index"><mat-checkbox 
+                            (change)="editTodoList(pi, ci,i, $event.checked)"
+                            [(ngModel)]="item.IsCompleted"
+                                [ngStyle]="{'text-decoration': item.IsCompleted ? 'line-through': ''}"
+                            >{{item.FieldValue}}</mat-checkbox></span>
                     </div>
                 </div>
             </div>
