@@ -15,13 +15,13 @@
                 <div id="divElement" class="todo" *ngFor="let col of row;let ci= index;" style="margin: 16px;"
                     [style.transform]="Matrix[pi][ci][0].transform">
                     <div class="todo-title d-flex justify-content-between align-items-center">
-                        <span>{{Matrix[pi][ci][0].Header}}</span>
+                        <span>{{Matrix[pi][ci][0].title}}</span>
                         <span (click)="AddTodoList(Matrix[pi][ci])"><mat-icon>remove_red_eye</mat-icon></span>
                     </div>
                     <div class="checkbox-list">
-                        <span *ngFor="let item of col; let i = index"><mat-checkbox 
+                        <span *ngFor="let item of col; let i = index" ><mat-checkbox 
                             (change)="editTodoList(pi, ci,i, $event.checked)"
-                            [(ngModel)]="item.IsCompleted"
+                            [(ngModel)]="item.IsCompleted" *ngIf="i!=0"
                                 [ngStyle]="{'text-decoration': item.IsCompleted ? 'line-through': ''}"
                             >{{item.FieldValue}}</mat-checkbox></span>
                     </div>

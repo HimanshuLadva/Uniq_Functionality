@@ -27,14 +27,15 @@ export class FrmTodoListComponent {
     this.LoadData();
    }
 
-  AddTodoList(item: any = null) {
+  AddTodoList(item: any[] = []) {
     console.log('AddTodoList', item);
+    let data = item.filter((ele, i) => i!=0);
     const dialogRef = this.dialog.open(FrmAddTodoComponent, {
       autoFocus: true,
       disableClose: true,
       restoreFocus: true,
       width: '550px',
-      data: item
+      data: data
     });
 
     dialogRef.afterClosed().subscribe(res => {
@@ -66,7 +67,7 @@ export class FrmTodoListComponent {
         })
       }
       let obj = {
-        // title: item.tasks[0]['Header'],
+        title: item.tasks[0]['Header'],
         tasks: item.tasks
       }
 
@@ -79,12 +80,11 @@ export class FrmTodoListComponent {
 
   convertInto2DArray() {
     this.TodoArr = this.TodoArr.map(item => [
-      // {
-      //   title: item.title,
-      //   transform: item.transform,
-      // },
+      {
+        title: item.title,
+        transform: item.transform,
+      },
       ...item.tasks.map((task, i) => {
-        task.transform = item.transform;
         return task;
       })
     ]);
@@ -135,8 +135,8 @@ export class FrmTodoListComponent {
       if (this.Matrix[numRows][numCols] == null) {
         return;
       }
-      // this.Matrix[numRows][numCols][0]['height'] = divHeight;
-      this.Matrix[numRows][numCols].forEach(ele => ele['height'] = divHeight);
+      this.Matrix[numRows][numCols][0]['height'] = divHeight;
+      // this.Matrix[numRows][numCols].forEach(ele => ele['height'] = divHeight);
       numCols++;
 
       if (numCols > this.numCols) {
@@ -157,8 +157,8 @@ export class FrmTodoListComponent {
           break;
         }
 
-        this.Matrix[i][j].forEach(ele => ele['transform'] = `translate(${width}px, ${height}px)`);
-        // this.Matrix[i][j][0]['transform'] = `translate(${width}px, ${height}px)`;
+        // this.Matrix[i][j].forEach(ele => ele['transform'] = `translate(${width}px, ${height}px)`);
+        this.Matrix[i][j][0]['transform'] = `translate(${width}px, ${height}px)`;
 
         height += (this.Matrix[i][j][0]['height'] + 16);
       }
@@ -168,7 +168,6 @@ export class FrmTodoListComponent {
 
 
   editTodoList(parentIndex: number, childIndex: number,cindex:number, IsCompleted: boolean) {
-    debugger
     let current = this.Matrix[parentIndex][childIndex][cindex];
     current.IsCompleted = IsCompleted;
 
