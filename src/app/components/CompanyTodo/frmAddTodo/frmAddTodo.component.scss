@@ -2,71 +2,97 @@
   display: block;
 }
 .todo {
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
 }
 
 .main {
-    padding: 0 15px; 
+  padding: 0 5px;
 }
 
 .todo-header {
-    padding: 15px 10px 15px 0px;
-    font-size: 24px;
+  padding: 15px 10px 3px 15px;
+  font-size: 24px;
 }
 
 .checkbox-list {
-    display: flex;
-    flex-direction: column;
-    padding: 0px 10px 5px 0px;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 0px 10px 5px 0px;
+  gap: 5px;
 }
 
 .checkbox-list .fieldvalue {
-   display: flex;
-   align-items: center;
+  display: flex;
+  align-items: center;
+  font-size: 17px;
 }
 .checkbox-list .fieldvalue-child {
-    display: flex;
-    align-items: center;
-    column-gap: 12px;
-    flex: 1;
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  flex: 1;
 }
 .checkbox-list .focused {
-   border-top: 1px solid gray;
-   border-bottom: 1px solid gray;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
 }
 .checkbox-list .fieldvalue-child div:nth-child(2) {
-   flex: 1;
+  flex: 1;
 }
 /* .checkbox-list .fieldvalue {
     padding-left: 12px;
 } */
 
 .add-todo {
-    display: flex;
-    align-items: flex-start;
-    column-gap: 6px;
-    border-top: 1px solid #adb5bd;
-    border-bottom: 1px solid #adb5bd;
-    padding: 5px 0px;
+  display: flex;
+  align-items: flex-start;
+  column-gap: 6px;
+  border-top: 1px solid #adb5bd;
+  border-bottom: 1px solid #adb5bd;
+  padding: 5px 0px;
 }
 
 .todo-footer {
-    padding-right: 15px;
-    padding-bottom: 10px;
+  padding-right: 15px;
+  padding-bottom: 10px;
+
+  // display: flex;
+  //   justify-content: flex-end;
+  column-gap: 5px;
+  position: sticky;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  background: #fff;
+  //   box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+.non-editablevalue {
+  width: 144px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 input {
-    border: none;
+  border: none;
 }
 
 input:focus {
-    outline: none;
+  outline: none;
 }
 
 ::ng-deep .mat-dialog-actions {
-    min-height: 0px !important;
-    margin-bottom: 0px !important;
+  min-height: 0px !important;
+  margin-bottom: 0px !important;
+}
+
+.add-fieldvalue {
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+  margin: 0 6px;
+  margin-bottom: 13px;
 }

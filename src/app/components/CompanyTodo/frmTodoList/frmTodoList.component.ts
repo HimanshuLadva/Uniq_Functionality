@@ -35,6 +35,7 @@ export class FrmTodoListComponent {
       disableClose: true,
       restoreFocus: true,
       width: '550px',
+      maxHeight: '577px',
       data: data
     });
 
@@ -50,7 +51,12 @@ export class FrmTodoListComponent {
     window.addEventListener('resize', this.getDimensions.bind(this));
   }
 
-  OnDelete(item: any) { }
+  OnDelete(title: string) { 
+     console.log('itemmmmmmmmmmm = ', title);
+    //  this.Matrix[pi] = this.Matrix[pi].filter((ele, i) => i != ci);
+    this.TodoArr = this.TodoArr.filter(ele => ele[0]['title'] != title);
+    this.getDimensions();
+  } 
 
   LoadData() {
     let arr: any[] = CDATA;
@@ -121,7 +127,7 @@ export class FrmTodoListComponent {
 
     setTimeout(() => {
       this.getDivHeights();
-    }, 1000);
+    }, 0);
   }
 
   getDivHeights() {
@@ -145,8 +151,17 @@ export class FrmTodoListComponent {
       }
     });
 
+    this.ApplyTransform();
+
+    console.log('Matrixxxx', this.Matrix);
+  }
+
+  ApplyTransform() {
     let rows = this.Matrix.length;
     let cols = this.Matrix[0].length;
+
+    console.log('thissssssss', this.numRows, this.numCols);
+    console.log('thissssssss123', rows, cols);
 
     // Traverse the matrix vertically
     for (let j = 0; j < cols; j++) {
@@ -159,11 +174,13 @@ export class FrmTodoListComponent {
 
         // this.Matrix[i][j].forEach(ele => ele['transform'] = `translate(${width}px, ${height}px)`);
         this.Matrix[i][j][0]['transform'] = `translate(${width}px, ${height}px)`;
-
+        
+        console.log('titleeeeeee', this.Matrix[i][j][0]['title']);
         height += (this.Matrix[i][j][0]['height'] + 16);
       }
     }
-    console.log('Matrixxxx', this.Matrix);
+
+    console.log('Matrixxxx-2', this.Matrix);
   }
 
 

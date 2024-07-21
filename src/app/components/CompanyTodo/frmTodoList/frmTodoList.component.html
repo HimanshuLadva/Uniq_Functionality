@@ -15,15 +15,17 @@
                 <div id="divElement" class="todo" *ngFor="let col of row;let ci= index;" style="margin: 16px;"
                     [style.transform]="Matrix[pi][ci][0].transform">
                     <div class="todo-title d-flex justify-content-between align-items-center">
-                        <span>{{Matrix[pi][ci][0].title}}</span>
-                        <span (click)="AddTodoList(Matrix[pi][ci])"><mat-icon>remove_red_eye</mat-icon></span>
+                        <span style="width: 144px; text-overflow: ellipsis;overflow: hidden;white-space: nowrap;" title="{{Matrix[pi][ci][0].title}}">{{Matrix[pi][ci][0].title}}</span>
+                        <span (click)="AddTodoList(Matrix[pi][ci])"><mat-icon>edit</mat-icon></span>
+                        <span (click)="OnDelete(Matrix[pi][ci][0].title)"><mat-icon>delete</mat-icon></span>
                     </div>
                     <div class="checkbox-list">
-                        <span *ngFor="let item of col; let i = index" ><mat-checkbox 
+                        <span *ngFor="let item of col; let i = index" class="checkbox-value-tick"><mat-checkbox 
                             (change)="editTodoList(pi, ci,i, $event.checked)"
                             [(ngModel)]="item.IsCompleted" *ngIf="i!=0"
-                                [ngStyle]="{'text-decoration': item.IsCompleted ? 'line-through': ''}"
-                            >{{item.FieldValue}}</mat-checkbox></span>
+                            ></mat-checkbox>
+                        <span class="checkbox-value" [ngStyle]="{'text-decoration': item.IsCompleted ? 'line-through': ''}" title="{{item.FieldValue}}">{{item.FieldValue}}</span>
+                        </span>
                     </div>
                 </div>
             </div>

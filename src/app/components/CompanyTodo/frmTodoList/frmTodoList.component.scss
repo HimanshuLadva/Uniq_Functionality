@@ -3,27 +3,27 @@
 }
 
 .epic-col12 {
-    /* background-color: #f8f9fa; */
-    width: 100%;
-    background-color: #f8f9fa;
+  /* background-color: #f8f9fa; */
+  width: 100%;
+  background-color: #f8f9fa;
 }
 
 .search {
-    position: relative;
+  position: relative;
 }
 
 .search input {
-    width: 100%;
-    padding: 10px 20px;
-    border-radius: 20px;
-    border: 2px solid gray;
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 2px solid gray;
 }
 
 .search .search-icon {
-    font-size: 24px;
-    position: absolute;
-    top: 11px;
-    right: 26px;
+  font-size: 24px;
+  position: absolute;
+  top: 11px;
+  right: 26px;
 }
 
 .todo-divtainer {
@@ -42,21 +42,39 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    background-color: #e9ecef;
-    box-shadow: 8px 8px 10px #cfd2d5, -8px -8px 10px #ffffff;
-    border-radius: 20px;
+    border-radius: 10px;
+    background: #e9ecef;
+    box-shadow: 9px 9px 11px #c6c9cb, -9px -9px 11px #ffffff;
     height: fit-content;
     transition: transform 0.5s ease-in-out;
 
     .todo-title {
       font-size: 24px;
-      padding: 15px;
+      padding: 12px 15px;
+      border-bottom: 1px solid #ffd400;
+      background: #fff6cc;
     }
 
     .checkbox-list {
       display: flex;
       flex-direction: column;
-      padding: 0px 10px 5px 10px;
+      padding: 0px 6px 5px 6px;
+      background: #fffae5;
+      row-gap: 5px;
+
+      .checkbox-value-tick {
+        display: flex;
+        align-items: center;
+        column-gap: 3px;
+      }
+
+      .checkbox-value {
+        overflow: hidden;
+        max-height: 55px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+      }
     }
   }
 }

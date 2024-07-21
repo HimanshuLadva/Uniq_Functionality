@@ -5,12 +5,13 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from "@angu
 import { MatIconModule } from '@angular/material/icon';
 import { EditableDivComponent } from '../editablediv/editablediv';
 import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-frm-add-todo',
   standalone: true,
   imports: [
-    CommonModule,MatIconModule,MatCheckboxModule,EditableDivComponent,MatButtonModule,MatDialogModule
+    CommonModule,MatIconModule,MatCheckboxModule,EditableDivComponent,MatButtonModule,MatDialogModule,FormsModule
   ],
   templateUrl: './frmAddTodo.component.html',
   styleUrls: ['./frmAddTodo.component.scss'],
@@ -21,11 +22,11 @@ export class FrmAddTodoComponent {
   HeaderPlaceHolder: string = "Title";
   TodoValue: string = "";
 
-  constructor(public dialogRef: MatDialogRef<FrmAddTodoComponent>, @Inject(MAT_DIALOG_DATA) public data: any = null) {
+  constructor(public dialogRef: MatDialogRef<FrmAddTodoComponent>, @Inject(MAT_DIALOG_DATA) public data: any[] = []) {
   }
 
   ngOnInit() {
-    if (this.data != null) {
+    if (this.data.length != 0) {
       this.Header = this.data[0].Header;
       let data: any[] = JSON.parse(JSON.stringify(this.data));
       data.forEach(ele => {
@@ -41,8 +42,28 @@ export class FrmAddTodoComponent {
   ngOnDestroy() {
   }
 
-  handleFocus(item: any, isFocused: boolean): void {
-    item.isFocused = isFocused;
+  onFocus(item: any, isFocused: Event): void {
+    console.log('itemssssss', item, isFocused);
+    item.isFocused = true;
+  }
+
+  onBlur(itme:any, event:Event) {
+     itme.isFocused = false;
+  }
+
+  handleKeydown(event: KeyboardEvent) {
+    if (event.key == 'Enter') {
+      event.preventDefault();
+      setTimeout(() => {
+        document.getElementById('AddTodo').focus();
+      }, 0);
+      this.AddTodoInList(event, this.TodoValue);
+    }
+  }
+
+  MovoTodo() {
+    document.getElementById('AddTodo').focus();
+    this.TodoValue = "";
   }
 
   AddTodoInList(event: KeyboardEvent, Todo: any) {
@@ -52,10 +73,12 @@ export class FrmAddTodoComponent {
       console.log('eventttttttttttt', event, Todo);
       this.Todos.push({
         id: 0,
-        FieldValue: Todo
+        FieldValue: this.TodoValue,
+        isFocused: false
       })
 
       Todo = "";
+      this.TodoValue = "";
       setTimeout(() => {
         document.getElementById('Todolist').focus();
       }, 0);

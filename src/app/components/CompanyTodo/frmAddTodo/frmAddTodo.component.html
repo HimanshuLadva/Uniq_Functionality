@@ -1,40 +1,40 @@
-<div class="main">
-    <div class="todo-header">
-        <editable-div [(content)]="Header" [placeholder]="HeaderPlaceHolder"></editable-div>
-    </div>
-    <div class="add-todo">
-        <span><mat-icon>add</mat-icon></span>
-        <span style="font-size: 18px; flex: 1; padding: 2px;">
-            <editable-div [(content)]="TodoValue" placeholder="List Item"
-                (keydown)="AddTodoInList($event, TodoValue)"></editable-div>
-        </span>
-    </div>
-    <mat-dialog-content>
+<div style="position: relative;">
+    <div class="main">
+        <div class="todo-header"><input id="Header" [(ngModel)]="Header" type="text" placeholder="Title"></div>
+    
         <div class="todo">
             <div class="checkbox-list">
-                <span *ngFor="let item of Todos" class="fieldvalue" (mouseenter)="item.isHovered = true"
+                <span *ngFor="let item of Todos;let i = index;" class="fieldvalue" (mouseenter)="item.isHovered = true"
                     (mouseleave)="item.isHovered = false" [ngClass]="{'focused': item.isFocused}">
-                    <div style="height: 24px; width: 24px;">
-                        <mat-icon *ngIf="item.isHovered">drag_indicator</mat-icon>
-                    </div>
                     <div class="fieldvalue-child">
                         <div (click)="ToggleCheckBox(item)">
-                            <!-- <CheckBox ColumnName="" [(Value)]="item.IsCompleted" DisplayText=" " SideLable="false">
-                                </CheckBox> -->
                             <mat-checkbox></mat-checkbox>
                         </div>
                         <div>
-                            <editable-div (focusChange)="handleFocus(item, $event)"
-                                [(content)]="item.FieldValue"></editable-div>
+                            <input [ngClass]="{'non-editablevalue': !item.isFocused}" id="FieldValue" (focus)="onFocus(item, $event)" (blur)="onBlur(item, $event)" [(ngModel)]="item.FieldValue" type="text" (keydown)="handleKeydown($event)">
+                            <!-- <div class="non-editablevalue" *ngIf="item.isFocused == false">{{item.FieldValue}}</div> -->
+                            <!-- <editable-div Id="FieldValue" (focusChange)="handleFocus(item, $event)"
+                                [(content)]="item.FieldValue" (enterPress)="MovoTodo()"></editable-div> -->
                         </div>
-                        <div *ngIf="item.isHovered" (click)="RemoveTodoFromList(item.Id)">
+                        <div  (click)="RemoveTodoFromList(item.Id)">
                             <mat-icon>close</mat-icon>
                         </div>
                     </div>
                 </span>
-        
-                <div>Completed&nbsp;({{CompletedTodos.length}})</div>
-        
+                <div class="add-fieldvalue">
+                    <div>
+                        <span><mat-icon>add</mat-icon></span>
+                    </div>
+                    <div style="font-size: 18px; flex: 1;padding: 5px 0px;">
+                        <!-- <editable-div Id="AddTodo" (focusChange)="MovoTodo()" [(content)]="TodoValue" placeholder="List Item" (enterPress)="AddTodoInList($event, TodoValue)"></editable-div> -->
+                        <input id="AddTodo" [(ngModel)]="TodoValue" type="text" placeholder="List Item"
+                            (keydown)="handleKeydown($event)">
+                        <!-- <textarea name="AddTodo" id="AddTodo" [(ngModel)]="TodoValue" placeholder="List Item" (keydown)="handleKeydown($event)"></textarea> -->
+                    </div>
+                </div>
+    
+                <div style="padding: 5px 15px;">Completed&nbsp;({{CompletedTodos.length}})</div>
+    
                 <span *ngFor="let item of CompletedTodos" class="fieldvalue" (mouseenter)="item.isHovered = true"
                     (mouseleave)="item.isHovered = false" [ngClass]="{'focused': item.isFocused}">
                     <div style="height: 24px; width: 24px;">
@@ -42,25 +42,30 @@
                     </div>
                     <div class="fieldvalue-child">
                         <div (click)="ToggleCheckBox(item)">
-                            <!-- <CheckBox ColumnName="" [(Value)]="item.IsCompleted" DisplayText=" " SideLable="false">
-                                </CheckBox> -->
                             <mat-checkbox></mat-checkbox>
                         </div>
                         <div>
-                            <editable-div (focusChange)="handleFocus(item, $event)"
-                                [(content)]="item.FieldValue"></editable-div>
+                            <!-- <editable-div (focusChange)="handleFocus(item, $event)"
+                                [(content)]="item.FieldValue"></editable-div> -->
                         </div>
                         <div *ngIf="item.isHovered" (click)="RemoveTodoFromList(item.Id)">
                             <mat-icon>close</mat-icon>
                         </div>
                     </div>
+                    <!-- <div contenteditable="true" (input)="updateContent($event, item)" [innerText]="item.FieldValue"></div> -->
+                    <!-- <div class="fieldvalue" contenteditable="true" [innerText]="item.FieldValue"></div> -->
                 </span>
-        
+    
             </div>
         </div>
-    </mat-dialog-content>
-</div>
-<div class="todo-footer" mat-dialog-actions align="end">
-    <button mat-raised-button mat-dialog-close>Save</button>
-    <button mat-raised-button mat-dialog-close (click)="OnClose()">Cancel</button>
+    </div>
+    <!-- <div class="todo-footer">
+        <button class="epic-bttn" mat-raised-button mat-dialog-close>Save</button>
+        <button class="epic-bttn" mat-raised-button mat-dialog-close (click)="OnClose()">Cancel</button>
+    </div> -->
+
+    <footer class="todo-footer">
+        <button class="epic-bttn" mat-raised-button mat-dialog-close>Save</button>
+        <button class="epic-bttn" mat-raised-button mat-dialog-close (click)="OnClose()">Cancel</button>
+    </footer>
 </div>
