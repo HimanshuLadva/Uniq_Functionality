@@ -12,6 +12,7 @@ import { Component } from '@angular/core';
 })
 export class AllProcessComponent { 
 
+  // adding this git testing comment
   dataArr = [
   { "UniqId": 7847, "ProcessId": 7847, "ProcessName": "STAGE-1", "ProductId": 6135, "Prod_type": "Raw Material" },
   { "UniqId": 7848, "ProcessId": 7847, "ProcessName": "STAGE-1", "ProductId": 6136, "Prod_type": "Raw Material" },
